@@ -1,2 +1,3 @@
+include ':HrayrAcbaLibrary'
 include ':app'
 rootProject.name = "AcbaHrayrApplication"
