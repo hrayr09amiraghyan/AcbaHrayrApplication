@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AcbaEditText">
+        <attr name="type" format="integer" />
+        <attr name="errorMessage" format="string" />
+        <attr name="inputLayout" format="reference" />
+    </declare-styleable>
+</resources>
