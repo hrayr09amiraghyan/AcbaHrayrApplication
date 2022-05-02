@@ -12,13 +12,8 @@ import androidx.appcompat.widget.AppCompatEditText
 
 class AcbaEditText : AppCompatEditText, ViewValidator {
 
-    private var hasBeenEdited = false
-    private var shouldShowError = false
-    private var hasFocus = false
     private var mType = 0
     private var errorMessage = ""
-    private var resId = 0
-
     private var acbaInputLayout: AcbaInputLayout? = null
 
     constructor(context: Context) : super(context)
@@ -38,58 +33,52 @@ class AcbaEditText : AppCompatEditText, ViewValidator {
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         acbaInputLayout = getInputLayout(this)
-
     }
 
     fun getInputLayout(view: View): AcbaInputLayout? {
         return if (view.parent is AcbaInputLayout) {
-            view as AcbaInputLayout
+            view.parent as AcbaInputLayout
         } else {
             return getInputLayout(view.parent as View)
         }
     }
 
-
     private fun init(context: Context, attrs: AttributeSet) {
         val values = context.obtainStyledAttributes(attrs, R.styleable.AcbaEditText)
         mType = values.getInt(R.styleable.AcbaEditText_type, 0)
         errorMessage = values.getString(R.styleable.AcbaEditText_errorMessage) ?: ""
-        resId = values.getResourceId(R.styleable.AcbaEditText_inputLayout, 0)
 
         addTextChangedListener(object : TextWatcher {
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun afterTextChanged(s: Editable?) {
+
+            }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(text: CharSequence, start: Int, before: Int, count: Int) {
-                hasBeenEdited = true
+                acbaInputLayout?.error = null
             }
         })
-
-        onFocusChangeListener = OnFocusChangeListener { _, hasFocus ->
-            this.hasFocus = hasFocus
-            updateState()
-        }
 
         values.recycle()
     }
 
-    private fun updateState() {
-        shouldShowError = !hasFocus && !Validator.isValidEmail(text.toString()) && hasBeenEdited
-        refreshDrawableState()
+    private fun showError() {
+        acbaInputLayout?.error = errorMessage
     }
 
     override fun validate() {
         when (mType) {
             1 -> {
-                if (Validator.isValidEmail(text.toString())) {
-                    acbaInputLayout?.error
+                if (!Validator.isValidEmail(text.toString())) {
+                    showError()
                 }
-
             }
             2 -> {
-                Validator.isValidPassword(text.toString())
+                if (!Validator.isValidPassword(text.toString())) {
+                    showError()
+                }
             }
 
         }

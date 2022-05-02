@@ -12,8 +12,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ActivityMainBinding.inflate(layoutInflater).apply {
             setContentView(root)
-            login.setOnClickListener{
-               Toast.makeText(this@MainActivity, etEmail.validate().toString(),Toast.LENGTH_SHORT).show()
+            login.setOnClickListener {
+                etEmail.validate()
+                etPassword.validate()
             }
         }
 

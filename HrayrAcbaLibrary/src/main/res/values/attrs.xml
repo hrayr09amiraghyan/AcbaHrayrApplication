@@ -3,6 +3,5 @@
     <declare-styleable name="AcbaEditText">
         <attr name="type" format="integer" />
         <attr name="errorMessage" format="string" />
-        <attr name="inputLayout" format="reference" />
     </declare-styleable>
 </resources>

@@ -5,11 +5,13 @@ import java.util.regex.Pattern
 object Validator {
 
     private val validEmailAddressRegex =
-        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
+        Pattern.compile("^(.+)@(.+)\$", Pattern.CASE_INSENSITIVE)
 
+
+    //Minimum eight characters, at least one letter and one number:
     private val validPasswordAddressRegex =
         Pattern.compile(
-            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–{}]:;',?/*~\$^+=<>]).{8,20}\$",
+            "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}\$",
             Pattern.CASE_INSENSITIVE
         )
 
