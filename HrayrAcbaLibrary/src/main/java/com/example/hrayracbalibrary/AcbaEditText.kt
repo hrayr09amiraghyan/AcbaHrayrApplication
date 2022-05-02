@@ -4,15 +4,12 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnFocusChangeListener
-import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatEditText
 
 class AcbaEditText : AppCompatEditText, ViewValidator {
 
-    private var mType = 0
+    private var viewType = 0
     private var errorMessage = ""
     private var acbaInputLayout: AcbaInputLayout? = null
 
@@ -45,7 +42,7 @@ class AcbaEditText : AppCompatEditText, ViewValidator {
 
     private fun init(context: Context, attrs: AttributeSet) {
         val values = context.obtainStyledAttributes(attrs, R.styleable.AcbaEditText)
-        mType = values.getInt(R.styleable.AcbaEditText_type, 0)
+        viewType = values.getInt(R.styleable.AcbaEditText_type, 0)
         errorMessage = values.getString(R.styleable.AcbaEditText_errorMessage) ?: ""
 
         addTextChangedListener(object : TextWatcher {
@@ -69,7 +66,7 @@ class AcbaEditText : AppCompatEditText, ViewValidator {
     }
 
     override fun validate() {
-        when (mType) {
+        when (viewType) {
             1 -> {
                 if (!Validator.isValidEmail(text.toString())) {
                     showError()
