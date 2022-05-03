@@ -7,7 +7,6 @@ object Validator {
     private val validEmailAddressRegex =
         Pattern.compile("^(.+)@(.+)\$", Pattern.CASE_INSENSITIVE)
 
-
     //Minimum eight characters, at least one letter and one number:
     private val validPasswordAddressRegex =
         Pattern.compile(
@@ -16,12 +15,12 @@ object Validator {
         )
 
     fun isValidEmail(emailStr: String): Boolean {
-        val matcher = validEmailAddressRegex.matcher(emailStr)
+        val matcher = validEmailAddressRegex.matcher(emailStr.trim())
         return matcher.find()
     }
 
     fun isValidPassword(password: String): Boolean {
-        val matcher = validPasswordAddressRegex.matcher(password)
+        val matcher = validPasswordAddressRegex.matcher(password.trim())
         return matcher.find()
     }
 }
