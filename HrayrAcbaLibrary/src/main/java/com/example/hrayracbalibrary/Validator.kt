@@ -8,7 +8,7 @@ object Validator {
         Pattern.compile("^(.+)@(.+)\$", Pattern.CASE_INSENSITIVE)
 
     //Minimum eight characters, at least one letter and one number:
-    private val validPasswordAddressRegex =
+    private val validPasswordRegex =
         Pattern.compile(
             "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}\$",
             Pattern.CASE_INSENSITIVE
@@ -20,7 +20,7 @@ object Validator {
     }
 
     fun isValidPassword(password: String): Boolean {
-        val matcher = validPasswordAddressRegex.matcher(password.trim())
+        val matcher = validPasswordRegex.matcher(password.trim())
         return matcher.find()
     }
 }
