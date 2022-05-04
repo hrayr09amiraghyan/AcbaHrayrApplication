@@ -4,4 +4,9 @@
         <attr name="type" format="integer" />
         <attr name="errorMessage" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="AcbaButton">
+        <attr name="isDoubleClickEnabled" format="boolean" />
+    </declare-styleable>
+
 </resources>
