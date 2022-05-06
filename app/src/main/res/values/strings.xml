@@ -3,5 +3,8 @@
     <string name="email_hint">Enter email</string>
     <string name="password_hint">Enter password</string>
     <string name="login_button">Login</string>
+    <string name="yerevan_weather">Yerevan\'s weather in %s</string>
+    <string name="yerevan_minimal_weather">Minimal %s</string>
+    <string name="yerevan_maximal_weather">Maximal %s</string>
 
 </resources>
