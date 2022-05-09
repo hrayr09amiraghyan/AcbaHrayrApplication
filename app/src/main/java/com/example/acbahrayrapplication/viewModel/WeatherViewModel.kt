@@ -6,20 +6,24 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.acbahrayrapplication.data.ApiClient
 import com.example.acbahrayrapplication.model.WeatherModel
+import com.example.acbahrayrapplication.repo.WeatherRepo
+import com.example.acbahrayrapplication.util.Response
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class WeatherViewModel(private val apiClient: ApiClient) : ViewModel() {
+class WeatherViewModel(private val weatherRepo: WeatherRepo) : ViewModel() {
 
-
-    private val _getWeatherData = MutableLiveData<WeatherModel>()
-    val getWeatherData: LiveData<WeatherModel> = _getWeatherData
+    private val _getWeatherData = MutableLiveData<Response<WeatherModel>>()
+    val getWeatherData: LiveData<Response<WeatherModel>> = _getWeatherData
 
 
     fun getWeatherData(id: Long, apiKey: String) {
+        _getWeatherData.value = Response.loading(null)
         viewModelScope.launch {
-            val response = apiClient.getWatherForecastForOneDay(id, apiKey)
-            if (response.isSuccessful && response.body() != null) {
-                _getWeatherData.postValue(response.body())
+            val response = weatherRepo.getWeatherData(id, apiKey)
+            withContext(Dispatchers.Main) {
+                _getWeatherData.value = response
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.acbahrayrapplication
 
 import android.app.Application
+import com.example.acbahrayrapplication.di.converterModule
 import com.example.acbahrayrapplication.di.networkModule
 import com.example.acbahrayrapplication.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +20,8 @@ class App : Application(){
             modules(
                 listOf(
                     networkModule,
-                    viewModelModule
+                    viewModelModule,
+                    converterModule
                 )
             )
         }
