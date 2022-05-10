@@ -21,11 +21,6 @@ class WeatherFragment : BaseFragment() {
     private val vmWeatherViewModel: WeatherViewModel by viewModel()
     private lateinit var binding: FragmentWeatherBinding
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = WeatherFragment()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
