@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.acbahrayrapplication.R
 import com.example.acbahrayrapplication.databinding.FragmentWeatherBinding
@@ -13,9 +14,9 @@ import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_2
 import com.example.acbahrayrapplication.util.Constants.weatherApiKey
 import com.example.acbahrayrapplication.util.Constants.yerevanLocationKey
 import com.example.acbahrayrapplication.util.NetworkHelper
+import com.example.acbahrayrapplication.util.Status
 import com.example.acbahrayrapplication.viewModel.WeatherViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-
 
 class WeatherFragment : BaseFragment() {
 
@@ -49,34 +50,47 @@ class WeatherFragment : BaseFragment() {
 
         vmWeatherViewModel.getWeatherData.observe(viewLifecycleOwner) {
 
-            it.data?.DailyForecasts?.get(0).let {
-                binding.tvDate.setText(
-                    context?.getString(
-                        R.string.yerevan_weather, DateFormat.convertDaterFormatTo(
-                            it?.Date,
-                            DATE_FORMAT_2,
-                            DATE_FORMAT_1
+            when (it.status) {
+                Status.LOADING -> {
+                    Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
+                }
+                Status.SUCCESS -> {
+                    it.data?.DailyForecasts?.get(0).let {
+                        binding.tvDate.setText(
+                            context?.getString(
+                                R.string.yerevan_weather, DateFormat.convertDateFormatTo(
+                                    it?.Date,
+                                    DATE_FORMAT_2,
+                                    DATE_FORMAT_1
+                                )
+                            )
                         )
-                    )
-                )
 
-                val minimumDegree = it?.Temperature?.Minimum?.Value.toString()
-                val minimumDegreeType = it?.Temperature?.Minimum?.Unit
-                val weatherMinimumText = minimumDegree.plus(minimumDegreeType)
-                binding.minDegree.setText(
-                    context?.getString(
-                        R.string.yerevan_minimal_weather, weatherMinimumText
-                    )
-                )
+                        val minimumDegree = it?.Temperature?.Minimum?.Value.toString()
+                        val minimumDegreeType = it?.Temperature?.Minimum?.Unit
+                        val weatherMinimumText = minimumDegree.plus(minimumDegreeType)
+                        binding.minDegree.setText(
+                            context?.getString(
+                                R.string.yerevan_minimal_weather, weatherMinimumText
+                            )
+                        )
 
-                val maximumDegree = it?.Temperature?.Maximum?.Value.toString()
-                val maximumDegreeType = it?.Temperature?.Maximum?.Unit
-                val weatherMaximumText = maximumDegree.plus(maximumDegreeType)
-                binding.maxdegree.setText(
-                    context?.getString(
-                        R.string.yerevan_maximal_weather, weatherMaximumText
-                    )
-                )
+                        val maximumDegree = it?.Temperature?.Maximum?.Value.toString()
+                        val maximumDegreeType = it?.Temperature?.Maximum?.Unit
+                        val weatherMaximumText = maximumDegree.plus(maximumDegreeType)
+                        binding.maxdegree.setText(
+                            context?.getString(
+                                R.string.yerevan_maximal_weather, weatherMaximumText
+                            )
+                        )
+                    }
+
+                }
+
+                Status.ERROR -> {
+                    Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
+
+                }
             }
 
         }

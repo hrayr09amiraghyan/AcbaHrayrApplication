@@ -7,11 +7,11 @@ import java.text.SimpleDateFormat
 object DateFormat {
 
     @SuppressLint("SimpleDateFormat")
-    open fun convertDaterFormatTo(pDate: String?, pFrom: String?, pTo: String?): String? {
+    fun convertDateFormatTo(pDate: String?, pFrom: String?, pTo: String?): String? {
         var sDate: String? = ""
         try {
-            val date = SimpleDateFormat(pFrom).parse(pDate)
-            sDate = SimpleDateFormat(pTo).format(date)
+            val date = pDate?.let { SimpleDateFormat(pFrom).parse(it) }
+            sDate = date?.let { SimpleDateFormat(pTo).format(it) }
         } catch (e: ParseException) {
             e.printStackTrace()
         }

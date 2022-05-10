@@ -3,11 +3,12 @@ package com.example.acbahrayrapplication
 import android.app.Application
 import com.example.acbahrayrapplication.di.converterModule
 import com.example.acbahrayrapplication.di.networkModule
+import com.example.acbahrayrapplication.di.repositoryModule
 import com.example.acbahrayrapplication.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
-class App : Application(){
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
@@ -21,7 +22,8 @@ class App : Application(){
                 listOf(
                     networkModule,
                     viewModelModule,
-                    converterModule
+                    converterModule,
+                    repositoryModule
                 )
             )
         }

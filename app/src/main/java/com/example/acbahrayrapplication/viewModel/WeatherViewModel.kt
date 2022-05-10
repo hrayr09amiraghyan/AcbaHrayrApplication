@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.acbahrayrapplication.data.ApiClient
 import com.example.acbahrayrapplication.model.WeatherModel
 import com.example.acbahrayrapplication.repo.WeatherRepo
 import com.example.acbahrayrapplication.util.Response
