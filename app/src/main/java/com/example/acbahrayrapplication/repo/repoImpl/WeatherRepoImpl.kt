@@ -5,12 +5,10 @@ import com.example.acbahrayrapplication.data.converter.implementation.WeatherCon
 import com.example.acbahrayrapplication.model.WeatherModel
 import com.example.acbahrayrapplication.repo.WeatherRepo
 import com.example.acbahrayrapplication.util.Response
-import com.example.acbahrayrapplication.util.ResponseHandler
 
 class WeatherRepoImpl(
     val apiClient: ApiClient,
     private val weatherConverter: WeatherConverter,
-    private val responseHandler: ResponseHandler
 ) :
     WeatherRepo {
 
@@ -21,9 +19,9 @@ class WeatherRepoImpl(
 
         return try {
             val data = apiClient.getWatherForecastForOneDay(id, apiKey)
-            responseHandler.handleSuccess(weatherConverter.dtoToModel(data))
+            Response.Success(weatherConverter.dtoToModel(data))
         } catch (e: Exception) {
-            responseHandler.handleException(e)
+            Response.Error(e.message)
         }
 
     }

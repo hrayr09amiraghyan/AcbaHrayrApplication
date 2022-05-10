@@ -1,32 +1,14 @@
 package com.example.acbahrayrapplication.util
 
-data class Response<out T>(
-    val status: Status,
-    val data: T?,
-    val exception: Exception?
+sealed class Response<T>(
+    val data: T? = null,
+    val message: String? = null
 ) {
-    companion object {
-        fun <T> success(data: T?): Response<T> {
-            return Response(
-                Status.SUCCESS,
-                data,
-                null
-            )
-        }
-        fun <T> error(exception: Exception?): Response<T> {
-            return Response(
-                Status.ERROR,
-                null,
-                exception
-            )
-        }
 
-        fun <T> loading(data: T?): Response<T> {
-            return Response(
-                Status.LOADING,
-                data,
-                null
-            )
-        }
-    }
+    class Success<T>(data: T) : Response<T>(data)
+
+    class Error<T>(message: String?, data: T? = null) : Response<T>(data, message)
+
+    class Loading<T> : Response<T>()
+
 }

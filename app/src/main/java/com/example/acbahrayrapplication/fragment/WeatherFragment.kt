@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import com.example.acbahrayrapplication.R
 import com.example.acbahrayrapplication.databinding.FragmentWeatherBinding
 import com.example.acbahrayrapplication.formatter.DateFormat
@@ -13,8 +12,7 @@ import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_1
 import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_2
 import com.example.acbahrayrapplication.util.Constants.weatherApiKey
 import com.example.acbahrayrapplication.util.Constants.yerevanLocationKey
-import com.example.acbahrayrapplication.util.NetworkHelper
-import com.example.acbahrayrapplication.util.Status
+import com.example.acbahrayrapplication.util.Response
 import com.example.acbahrayrapplication.viewModel.WeatherViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -49,12 +47,11 @@ class WeatherFragment : BaseFragment() {
         }
 
         vmWeatherViewModel.getWeatherData.observe(viewLifecycleOwner) {
+            when (it) {
+                is Response.Loading -> {
 
-            when (it.status) {
-                Status.LOADING -> {
-                    Toast.makeText(requireContext(),"Loading",Toast.LENGTH_SHORT).show()
                 }
-                Status.SUCCESS -> {
+                is Response.Success -> {
                     it.data?.DailyForecasts?.get(0).let {
                         binding.tvDate.setText(
                             context?.getString(
@@ -84,15 +81,15 @@ class WeatherFragment : BaseFragment() {
                             )
                         )
                     }
-
                 }
-
-                Status.ERROR -> {
-                    Toast.makeText(requireContext(),"Error",Toast.LENGTH_SHORT).show()
-
+                is Response.Error -> {
+                    Toast.makeText(
+                        requireContext(),
+                        it.message.toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-
         }
     }
 

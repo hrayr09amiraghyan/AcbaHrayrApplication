@@ -16,9 +16,8 @@ class WeatherViewModel(private val weatherRepo: WeatherRepo) : ViewModel() {
     private val _getWeatherData = MutableLiveData<Response<WeatherModel>>()
     val getWeatherData: LiveData<Response<WeatherModel>> = _getWeatherData
 
-
     fun getWeatherData(id: Long, apiKey: String) {
-        _getWeatherData.value = Response.loading(null)
+        _getWeatherData.value = Response.Loading()
         viewModelScope.launch {
             val response = weatherRepo.getWeatherData(id, apiKey)
             withContext(Dispatchers.Main) {
