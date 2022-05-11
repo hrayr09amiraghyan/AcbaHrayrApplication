@@ -1,58 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.example.hrayracbalibrary.AcbaInputLayout
-        android:id="@+id/emailInputLayout"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        class="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
-
-        <com.example.hrayracbalibrary.AcbaEditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email_hint"
-            android:textSize="16sp"
-            app:errorMessage="Invalid email"
-            app:layout_constraintTop_toTopOf="parent"
-            app:type="1" />
-
-    </com.example.hrayracbalibrary.AcbaInputLayout>
-
-    <com.example.hrayracbalibrary.AcbaInputLayout
-        android:id="@+id/passwordInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp">
-
-        <com.example.hrayracbalibrary.AcbaEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password_hint"
-            android:textSize="16sp"
-            app:errorMessage="Invalid password"
-            app:layout_constraintTop_toTopOf="parent"
-            app:type="2" />
-
-    </com.example.hrayracbalibrary.AcbaInputLayout>
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/login_button"
-        app:layout_constraintTop_toBottomOf="@+id/inputlayout" />
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph" />
+</FrameLayout>

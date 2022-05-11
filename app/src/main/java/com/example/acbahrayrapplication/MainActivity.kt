@@ -10,10 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ActivityMainBinding.inflate(layoutInflater).apply {
             setContentView(root)
-            login.setOnClickListener {
-                etEmail.validate()
-                etPassword.validate()
-            }
         }
     }
+
 }
