@@ -2,5 +2,7 @@ package com.example.hrayracbalibrary
 
 interface ViewValidator {
 
-    fun validate()
+    fun validate(): Boolean
+    fun setDeafaultState()
+    fun setErrorSate(errorMessage: String)
 }
