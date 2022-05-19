@@ -55,17 +55,17 @@ class AcbaEditText : AppCompatEditText, ViewValidator {
             }
             l?.onFocusChange(view, onFocus)
         }
-
     }
 
     override fun validate(): Boolean {
-
         val viewText = text.toString()
-        if (validationType != UNDEFINED && !isValidationPassed(validationType, viewText)) {
-            if (viewText.isEmpty() || isRequired) {
-                setErrorSate(setErrorText(validationType))
-                return false
-            }
+        if (isRequired && validationType != UNDEFINED && !isValidationPassed(
+                validationType,
+                viewText
+            )
+        ) {
+            setErrorSate(setErrorText(validationType, viewText))
+            return false
         }
         setDeafaultState()
         return true
@@ -74,23 +74,25 @@ class AcbaEditText : AppCompatEditText, ViewValidator {
     private fun isValidationPassed(validationType: Int, text: String): Boolean {
 
         return when (validationType) {
-
-            resources.getInteger(R.integer.validate_is_Required)-> text.validateIsRequired()
             resources.getInteger(R.integer.validate_email) -> text.validateEmail()
             resources.getInteger(R.integer.validate_password) -> text.validatePassword()
-            resources.getInteger(R.integer.validate_min_length) -> text.validateMinLength(minLength)
             else -> false
         }
 
     }
 
-    private fun setErrorText(validationType: Int): String {
-        return when (validationType) {
-            resources.getInteger(R.integer.validate_is_Required) -> resources.getString(R.string.isRequired_error)
-            resources.getInteger(R.integer.validate_min_length) -> String.format(resources.getString(R.string.min_length_error),minLength)
-            resources.getInteger(R.integer.validate_email) -> resources.getString(R.string.email_error)
-            resources.getInteger(R.integer.validate_password) -> resources.getString(R.string.password_error)
-            else -> ""
+    private fun setErrorText(validationType: Int, text: String): String {
+
+        return if (text.isEmpty()) {
+            resources.getString(R.string.isRequired_error)
+        } else if (text.length < minLength) {
+            String.format(resources.getString(R.string.min_length_error), minLength)
+        } else {
+            when (validationType) {
+                resources.getInteger(R.integer.validate_email) -> resources.getString(R.string.email_error)
+                resources.getInteger(R.integer.validate_password) -> resources.getString(R.string.password_error)
+                else -> ""
+            }
         }
     }
 

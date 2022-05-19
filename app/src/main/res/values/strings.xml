@@ -4,4 +4,9 @@
     <string name="password_hint">Enter password</string>
     <string name="login_button">Login</string>
 
+    <string name="email_error">Email error</string>
+    <string name="password_error">Password error</string>
+    <string name="isRequired_error">Field cannot be empty</string>
+    <string name="min_length_error">Field must contain minimum 6 characters</string>
+
 </resources>
