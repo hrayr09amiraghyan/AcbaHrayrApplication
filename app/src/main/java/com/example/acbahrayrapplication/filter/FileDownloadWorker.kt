@@ -44,14 +44,14 @@ class FileDownloadWorker(appContext: Context, workerParams: WorkerParameters) :
                 )
             )
             val sb = StringBuffer()
-            var line: String? = ""
+            var line: String
             while (br.readLine().also { line = it } != null) {
                 sb.append(line)
             }
             data = sb.toString()
             br.close()
         } catch (e: Exception) {
-            Log.e("TAG", "problem downloading JSON", e);
+            Log.e("TAG", "problem downloading JSON", e)
         } finally {
             iStream?.close()
             urlConnection?.disconnect()
