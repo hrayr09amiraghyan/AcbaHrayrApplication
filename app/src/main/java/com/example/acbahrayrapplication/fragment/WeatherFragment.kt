@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.work.*
 import com.example.acbahrayrapplication.R
 import com.example.acbahrayrapplication.databinding.FragmentWeatherBinding
+import com.example.acbahrayrapplication.filter.FileDownloadWorker
 import com.example.acbahrayrapplication.formatter.DateFormat
 import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_1
 import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_2
@@ -32,6 +34,8 @@ class WeatherFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        startWorker()
+
         binding.login.setOnClickListener {
             binding.etEmail.validate()
             binding.etPassword.validate()
@@ -87,5 +91,28 @@ class WeatherFragment : BaseFragment() {
             }
         }
     }
+
+    private fun startWorker() {
+        val jsonUrl = "https://myjsonhrayr.000webhostapp.com/myJson1.txt"
+        val data = Data.Builder()
+            .putString("json_file", jsonUrl)
+            .build()
+
+        val constraints = Constraints
+            .Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val oneTimeRequest = OneTimeWorkRequest.Builder(FileDownloadWorker::class.java)
+            .setInputData(data)
+            .setConstraints(constraints)
+            .build()
+
+        Toast.makeText(requireContext(), "Starting worker", Toast.LENGTH_SHORT).show()
+
+        WorkManager.getInstance(requireContext())
+            .enqueue(oneTimeRequest)
+    }
+
 
 }
