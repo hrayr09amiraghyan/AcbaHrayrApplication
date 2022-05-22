@@ -27,7 +27,7 @@ class FileDownloadWorker(appContext: Context, workerParams: WorkerParameters) :
         var data = ""
         var iStream: InputStream? = null
         var urlConnection: HttpURLConnection? = null
-        try { /*w  w  w  .  j  a  v a 2 s  .c om*/
+        try {
             val url = URL(strUrl)
 
             // Creating an http connection to communicate with url
@@ -51,7 +51,7 @@ class FileDownloadWorker(appContext: Context, workerParams: WorkerParameters) :
             data = sb.toString()
             br.close()
         } catch (e: Exception) {
-            Log.e("TAG", "problem downloading JSON from Google", e);
+            Log.e("TAG", "problem downloading JSON", e);
         } finally {
             iStream?.close()
             urlConnection?.disconnect()
