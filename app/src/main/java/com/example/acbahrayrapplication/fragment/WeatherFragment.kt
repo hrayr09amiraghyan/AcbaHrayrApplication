@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.work.*
 import com.example.acbahrayrapplication.R
 import com.example.acbahrayrapplication.databinding.FragmentWeatherBinding
 import com.example.acbahrayrapplication.filter.FileDownloadWorker
 import com.example.acbahrayrapplication.formatter.DateFormat
+import com.example.acbahrayrapplication.fragment.base.BaseFragment
 import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_1
 import com.example.acbahrayrapplication.util.Constants.DATE_FORMAT_2
 import com.example.acbahrayrapplication.util.Constants.weatherApiKey
@@ -39,6 +42,10 @@ class WeatherFragment : BaseFragment() {
         binding.login.setOnClickListener {
             binding.etEmail.validate()
             binding.etPassword.validate()
+        }
+
+        binding.register.setOnClickListener {
+            view.findNavController().navigate(R.id.action_weatherFragment_to_registrationFragment)
         }
 
         makeRequestIfNetworkAvailable(requireContext()) {

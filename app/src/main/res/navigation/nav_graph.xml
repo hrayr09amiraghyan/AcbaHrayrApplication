@@ -9,6 +9,20 @@
         android:name="com.example.acbahrayrapplication.fragment.WeatherFragment"
         tools:layout="@layout/fragment_weather">
 
+        <action
+           android:id="@+id/action_weatherFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@anim/enter_anim"
+            app:exitAnim="@anim/exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.acbahrayrapplication.fragment.RegistrationFragment">
+
     </fragment>
 
 </navigation>

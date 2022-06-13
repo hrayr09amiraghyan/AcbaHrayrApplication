@@ -1,4 +1,4 @@
-package com.example.acbahrayrapplication.fragment
+package com.example.acbahrayrapplication.fragment.base
 
 import android.content.Context
 import android.widget.Toast
